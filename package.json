@@ -22,8 +22,11 @@
   },
   "homepage": "https://github.com/dappjumper/coreflow#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "ethereumjs-util": "^7.0.2",
     "express": "^4.17.1",
+    "express-jwt": "^5.3.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18"
   },
   "devDependencies": {
