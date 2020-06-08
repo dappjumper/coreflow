@@ -9,11 +9,38 @@ const User = require('./user');
 const Jwt = require('express-jwt');
 const JwtGen = require('jsonwebtoken');
 
+const httpFeedback = (code, customMessage)=>{
+	let chunk = {
+		code: code,
+		msg: customMessage || "Something went wrong..."
+	}
+	switch(code) {
+		case 400:
+			chunk.msg = "Bad input data"
+		break;
+		case 404:
+			chunk.msg = "Resource not found"
+		break;
+		case 500:
+			chunk.msg = "Something went wrong..."
+		break;
+	}
+	return chunk;
+}
+
 app.use(cors())
 
 require('dotenv').config()
 
 const APIVersion = 1;
+
+const loginChallenge = (user)=>{
+	console.log(user)
+}
+
+const registrationChallenge = (user, module)=>{
+	return "I wish to register a "+module+' ('+user+')'
+}
 
 const requiredRoutes = {
 	protected: [
@@ -41,12 +68,13 @@ const requiredRoutes = {
 			url: "challenge/:address?",
 			module: "user",
 			handler: function(req, res){
-				if(!req.params.address) return res.send({code: 400, msg: "Please specify address after method 'challenge/0x00000000000'"})
+				if(!req.params.address) return res.send(httpFeedback(404))
+				if(req.params.address.length !== 42) return res.send(httpFeedback(400))
 				User.model.findOne({address:req.params.address}, "address nonce", function(err, user){
 					if(!err && user) {
-						res.send({user: user.address, challenge:this.loginChallenge({address:user.address,nonce:user.nonce})})
+						res.send({code: 200, msg: loginChallenge(user, "user")})
 					} else {
-						res.send({code: 200, address: userAddress})
+						res.send({code: 200, msg: registrationChallenge(req.params.address, "user")})
 					}
 				})
 			},
