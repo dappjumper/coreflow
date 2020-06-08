@@ -1,0 +1,32 @@
+{
+  "name": "dappjump-coreflow",
+  "version": "1.0.0",
+  "description": "Using Ethereum signatures to deliver JWT tokens for projects that rely on public key verification",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dappjumper/coreflow.git"
+  },
+  "keywords": [
+    "jwt",
+    "ethereum",
+    "passport"
+  ],
+  "author": "Tobias Andersen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dappjumper/coreflow/issues"
+  },
+  "homepage": "https://github.com/dappjumper/coreflow#readme",
+  "dependencies": {
+    "ethereumjs-util": "^7.0.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
