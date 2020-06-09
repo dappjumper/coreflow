@@ -1,2 +1,2 @@
 <a href="http://auth.dappjump.io"><img src="https://github.com/dappjumper/coreflow/blob/master/dist/logo.png" title="Auth Server" alt="Auth Server"></a>
-> Using Ethereum signatures to deliver JWT tokens for projects that rely on public key verification
+> Self-contained MongoDB user system designed to be a micro-service for authorization via Ethereum signatures.
