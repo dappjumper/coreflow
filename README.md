@@ -3,4 +3,4 @@
 
 <img src="https://img.shields.io/github/package-json/keywords/dappjumper/coreflow?style=for-the-badge"> <img src="https://img.shields.io/github/package-json/v/dappjumper/coreflow?style=for-the-badge"> 
 
-<img src="https://github.com/dappjumper/coreflow/blob/master/dist/readme_hero.png" title="Auth Server" alt="Auth Server">
+<p align="center"><img src="https://github.com/dappjumper/coreflow/blob/master/dist/readme_hero_v1.png" title="Microservice architecture" alt="Microservice architecture"></p>
