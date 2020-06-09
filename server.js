@@ -1,11 +1,8 @@
 var express = require('express')
 var app = express()
 const cors = require('cors');
-
 const EthUtil = require('ethereumjs-util');
-
 const User = require('./user');
-
 const Jwt = require('express-jwt');
 const JwtGen = require('jsonwebtoken');
 
@@ -34,12 +31,12 @@ require('dotenv').config()
 
 const APIVersion = 1;
 
-const loginChallenge = (user)=>{
-	console.log(user)
+const loginChallenge = (user, service)=>{
+	return "I hereby sign that I am trying to log onto a dappjump.io "+service+" service. #"+(user.nonce || '0')+"  "+user.address
 }
 
-const registrationChallenge = (user, module)=>{
-	return "I wish to register a "+module+' ('+user+')'
+const registrationChallenge = (user, service)=>{
+	return "I hereby sign that I am trying to register on a dappjump.io "+service+" service. #0 "+user
 }
 
 const requiredRoutes = {

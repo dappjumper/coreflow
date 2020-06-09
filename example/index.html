@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title>
+			Coreflow Client Example
+		</title>
+		<script type="text/javascript">
+			function injectableLoaded() {
+				//onReady called when user login system is ready
+				coreflow.onReady = ()=>{
+					console.log("Example app is ready");
+					document.getElementById('loader').className = "ready";
+					document.getElementById('app').className = "ready";
+				}
+
+				//Initialize it with optional options objects
+				coreflow.init({
+					baseDomain: "http://localhost"
+				})
+			}
+		</script>
+		<script src="http://localhost/dist/injectable.js" async defer onload="injectableLoaded()"></script>
+	</head>
+	<body>
+		<style>
+			html, body {
+				margin:0; padding:0; background:#333333; color:#fafafa;
+			}
+			#app, #loader {
+				position:absolute;
+				top:50%;
+				left:50%;
+				font-size:50px;
+				transform:translate(-50%,-50%);
+				transition:opacity .2s;
+			}
+			#app {
+				opacity:0;
+			}
+			#app.ready {
+				opacity:1;
+			}
+			#loader.ready {
+				opacity:0;
+				pointer-events: none;
+			}
+		</style>
+		<div id="loader">
+			Loading Coreflow...
+		</div>
+		<div id="app">
+			Welcome to Coreflow!
+		</div>
+	</body>
+</html>
