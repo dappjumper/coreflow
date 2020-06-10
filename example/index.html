@@ -7,7 +7,7 @@
 			function injectableLoaded() {
 				//onReady called when user login system is ready
 				coreflow.onReady = ()=>{
-					console.log("Example app is ready");
+					console.log("Example app is ready",coreflow);
 					document.getElementById('loader').className = "ready";
 					document.getElementById('app').className = "ready";
 				}
@@ -44,11 +44,14 @@
 				pointer-events: none;
 			}
 		</style>
+		<header>
+			Coreflow Demo
+		</header>
 		<div id="loader">
-			Loading Coreflow...
+			Loading...
 		</div>
 		<div id="app">
-			Welcome to Coreflow!
+			
 		</div>
 	</body>
 </html>

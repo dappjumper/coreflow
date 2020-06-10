@@ -5,6 +5,7 @@ const EthUtil = require('ethereumjs-util');
 const User = require('./user');
 const Jwt = require('express-jwt');
 const JwtGen = require('jsonwebtoken');
+const version = require('./package.json').version;
 
 const httpFeedback = (code, customMessage)=>{
 	let chunk = {
@@ -29,7 +30,7 @@ app.use(cors())
 
 require('dotenv').config()
 
-const APIVersion = 1;
+const APIVersion = version.split('.')[0];
 
 const loginChallenge = (user, service)=>{
 	return "I hereby sign that I am trying to log onto a dappjump.io "+service+" service. #"+(user.nonce || '0')+"  "+user.address
@@ -52,6 +53,15 @@ const requiredRoutes = {
 		}
 	],
 	public: [
+		{
+			url: "version",
+			module: "info",
+			handler: function(req, res){
+				res.send(version)
+			},
+			method: "get",
+			description: "Accurate version of Coreflow"
+		},
 		{
 			url: "",
 			module: "core",
