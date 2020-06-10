@@ -4,3 +4,31 @@
 <img src="https://img.shields.io/github/package-json/keywords/dappjumper/coreflow?style=for-the-badge"> <img src="https://img.shields.io/github/package-json/v/dappjumper/coreflow?style=for-the-badge"> 
 
 <p align="center"><img src="https://github.com/dappjumper/coreflow/blob/master/dist/readme_hero_v2.png" title="Microservice architecture" alt="Microservice architecture"></p>
+
+# Installing
+
+- Clone this repository
+- Set environment variable `MONGODB_URI` to be your MongoDB instance URI
+- Install as any other NodeJS application either locally or on a host of your choice
+
+# Usage
+
+So, you have setup your very own Coreflow server, let's see what we can do!
+
+## Modules
+
+### Core
+```
+get /api/core/v1/modules //Get all installed modules
+get /api/core/v1/ //See all available endpoints
+```
+### User
+```
+get /api/user/v1/challenge/:address? //Get either a login or registration challenge to be signed by the client
+post /api/user/v1/challenge/:address? //Submit your signed challenge for verification (returns JWT Token)
+```
+
+### Info
+```
+get /api/info/v1/version //Get the full version of your Coreflow server
+```
