@@ -18,17 +18,17 @@ So, you have setup your very own Coreflow server, let's see what we can do!
 ## Modules
 
 ### Core
-```
+```JavaScript
 get /api/core/v1/modules //Get all installed modules
 get /api/core/v1/ //See all available endpoints
 ```
 ### User
-```
+```JavaScript
 get /api/user/v1/challenge/:address? //Get either a login or registration challenge to be signed by the client
 post /api/user/v1/challenge/:address? //Submit your signed challenge for verification (returns JWT Token)
 ```
 
 ### Info
-```
+```JavaScript
 get /api/info/v1/version //Get the full version of your Coreflow server
 ```
