@@ -32,12 +32,31 @@ require('dotenv').config()
 
 const APIVersion = version.split('.')[0];
 
+const populateStr = (str, tags)=>{
+	let returnStr = str;
+	for(let tag in tags) {
+		returnStr = returnStr.replace(tags[tag][0],tags[tag][1])
+	}
+	return returnStr
+}
+
 const loginChallenge = (user, service)=>{
-	return "I hereby sign that I am trying to log onto a dappjump.io "+service+" service. #"+(user.nonce || '0')+"  "+user.address
+	let str = process.env.LOGIN_CHALLENGE || "I hereby sign that I am trying to log onto a <DOMAIN> <SERVICE> service. #<NONCE>  <ADDRESS>"
+	return populateStr(str, [
+		["<ADDRESS>",user.address],
+		["<NONCE>",user.nonce || 0],
+		["<SERVICE>",service],
+		["<DOMAIN>",process.env.DOMAIN || "coreflow.js"]
+	])
 }
 
 const registrationChallenge = (user, service)=>{
-	return "I hereby sign that I am trying to register on a dappjump.io "+service+" service. #0 "+user
+	let str = process.env.REGISTRATION_CHALLENGE || "I hereby sign that I am trying to register on a <DOMAIN> <SERVICE> service. #0 <ADDRESS>"
+	return populateStr(str, [
+		["<ADDRESS>",user],
+		["<SERVICE>",service],
+		["<DOMAIN>",process.env.DOMAIN || "coreflow.js"]
+	])
 }
 
 const requiredRoutes = {
