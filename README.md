@@ -8,13 +8,8 @@
 # Installing
 
 - Clone this repository
-- Set environment variable `MONGODB_URI` to be your MongoDB instance URI
+- Set environment variables seen below
 - Install as any other NodeJS application either locally or on a host of your choice
-
-# Usage
-
-So, you have setup your very own Coreflow server, let's see what we can do!
-
 
 ## Environment variables (configuration is key)
 
