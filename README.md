@@ -15,6 +15,16 @@
 
 So, you have setup your very own Coreflow server, let's see what we can do!
 
+
+## Environment variables (configuration is key)
+
+- **JWTSECRET** ´<LONG SECRET>´ *May also be used for non-jwt encryption, so make it count!*
+- **MONGODB_URI** ´mongodb+srv://...´
+- **PORT** ´80´
+- **REGISTRATION_CHALLENGE:** ´I wish to register on <DOMAIN> with the address <ADDRESS>´ *Automatically replaces `<TAG>` with proper value*
+- **LOGIN_CHALLENGE:** ´I wish to login on <DOMAIN> with the address <ADDRESS> with nonce <NONCE>´ *Automatically replaces `<TAG>` with proper value*
+- **DOMAIN:** ´coreflow.js´
+
 ## Modules
 
 ### Core
