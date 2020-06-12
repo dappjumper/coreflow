@@ -12,6 +12,7 @@
 - Install as any other NodeJS application either locally or on a host of your choice
 
 ## Environment variables (configuration is key)
+<a href="https://github.com/dappjumper/coreflow/blob/master/.env.sample">Grab sample .env file</a>
 
 - **JWTSECRET** *May also be used for non-jwt encryption, so make it count!*  
 `<LONG SECRET>`  
