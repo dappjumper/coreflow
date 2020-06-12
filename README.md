@@ -28,7 +28,7 @@
 - **LOGIN_CHALLENGE** *Automatically replaces `<TAG>` with proper value*  
 `I wish to login on <DOMAIN> with the address <ADDRESS> with nonce <NONCE>`  
 
-- **DOMAIN**  *Used in challenge strings and more*
+- **DOMAIN**  *Used in challenge strings and more*  
 `coreflow.js`  
 
 ## Modules
