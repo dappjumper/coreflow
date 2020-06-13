@@ -4,13 +4,47 @@
 			Coreflow Client Example
 		</title>
 		<script type="text/javascript">
+			function setLoading(str) {
+				let loader = document.getElementById('loader');
+				loader.className = "";
+				loader.querySelector('span').innerHTML = str ||"Loading..."
+			}
+			function setReady(state) {
+				let loader = document.getElementById('loader');
+				loader.className = "ready";
+				document.getElementById('app').className = "ready";
+				loader.querySelector('span').innerHTML = ""
+				if(state) setState(state)
+			}
+			function setState(state) {
+				let states = document.querySelectorAll('#app [data-state]')
+				for(let state in states){
+					states[state].className = "";
+				}
+				document.querySelector('#app [data-state="'+state+'"').className = "ready";
+			}
+			function getStoredJWT() {
+				return localStorage.getItem('coreflowJWT') || false
+			}
+			function getStoredWallet() {
+				return localStorage.getItem('coreflowWallet') || false
+			}
+			function setInitialState() {
+				setLoading('Loading...')
+				if(!getStoredJWT()) {
+					if(!getStoredWallet()) {
+						setReady('initial')
+					} else {
+						setReady('unlockWallet')
+					}
+				} else {
+					setLoading('Logging in...')
+					tryJWT(getStoredJWT())
+				}
+			}
 			function injectableLoaded() {
 				//onReady called when user login system is ready
-				coreflow.onReady = ()=>{
-					console.log("Example app is ready",coreflow);
-					document.getElementById('loader').className = "ready";
-					document.getElementById('app').className = "ready";
-				}
+				coreflow.onReady = setInitialState
 
 				//Initialize it with optional options objects
 				coreflow.init({
@@ -43,15 +77,26 @@
 				opacity:0;
 				pointer-events: none;
 			}
+			[data-state] {
+				display:none;
+			}
+			[data-state].ready {
+				display:block;
+			}
 		</style>
 		<header>
 			Coreflow Demo
 		</header>
 		<div id="loader">
-			Loading...
+			<span></span>
 		</div>
 		<div id="app">
-			
+			<div data-state="initial">
+				Initial
+			</div>
+			<div data-state="unlockWallet">
+				Unlock wallet?!
+			</div>
 		</div>
 	</body>
 </html>
