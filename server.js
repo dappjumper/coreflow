@@ -1,5 +1,8 @@
 var express = require('express')
 var app = express()
+const bodyParser = require('body-parser')
+
+
 const cors = require('cors');
 const EthUtil = require('ethereumjs-util');
 const User = require('./user');
@@ -27,7 +30,11 @@ const httpFeedback = (code, customMessage)=>{
 }
 
 app.use(cors())
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
 require('dotenv').config()
 
 const APIVersion = version.split('.')[0];
@@ -98,9 +105,9 @@ const requiredRoutes = {
 				if(req.params.address.length !== 42) return res.send(httpFeedback(400))
 				User.model.findOne({address:req.params.address}, "address nonce", function(err, user){
 					if(!err && user) {
-						res.send({code: 200, msg: loginChallenge(user, "user")})
+						res.send(httpFeedback(200, loginChallenge(user, "user")))
 					} else {
-						res.send({code: 200, msg: registrationChallenge(req.params.address, "user")})
+						res.send(httpFeedback(200, registrationChallenge(req.params.address, "user")))
 					}
 				})
 			},
@@ -111,8 +118,27 @@ const requiredRoutes = {
 			url: "challenge/:address?",
 			module: "user",
 			handler: function(req, res) {
-				if(!req.params.address) return res.send({code: 400, msg:"No address specified"})
-				if(!req.body.signature) return res.send({code: 400, msg:"No signature attached"})
+				if(!req.params.address) return res.send(httpFeedback(400))
+				if(!req.body.signature) return res.send(httpFeedback(400))
+				User.model.findOne({address:req.params.address}, "address nonce", function(err, user){
+					let content = ""
+					if(!err && user) {
+						content = loginChallenge(user,"user")
+					} else {
+						content = registrationChallenge(req.params.address, "user")
+					}
+					signatureMatchesAddress(req.params.address, req.body.signature, content)
+						.then((result)=>{
+							JwtGen.sign({ address: result.address }, process.env.JWTSECRET || "supersecret", function(err, token) {
+							  	if(err) return res.send(httpFeedback(500))
+								res.send(httpFeedback(200, token))
+							  	User.model.updateOne({address: result.address}, {$set: {address:address}, $inc:{nonce: 1}, $setOnInsert: {created: new Date().getTime()}}, {upsert:true})
+							});
+						})
+						.catch(()=>{
+							res.send(httpFeedback(400))
+						})
+				})
 			},
 			method: "post",
 			description: "Test challenge and receive JWT token if successful"
