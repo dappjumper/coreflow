@@ -5,22 +5,27 @@
 		</title>
 		<script type="text/javascript">
 			function setLoading(str) {
+				setStatesUnready()
+				document.getElementById('app').className = "";
 				let loader = document.getElementById('loader');
 				loader.className = "";
-				loader.querySelector('span').innerHTML = str ||"Loading..."
+				loader.querySelector('h4').innerHTML = str ||"Loading..."
 			}
 			function setReady(state) {
 				let loader = document.getElementById('loader');
 				loader.className = "ready";
 				document.getElementById('app').className = "ready";
-				loader.querySelector('span').innerHTML = ""
+				loader.querySelector('h4').innerHTML = ""
 				if(state) setState(state)
 			}
-			function setState(state) {
+			function setStatesUnready() {
 				let states = document.querySelectorAll('#app [data-state]')
 				for(let state in states){
 					states[state].className = "";
 				}
+			}
+			function setState(state) {
+				setStatesUnready();
 				document.querySelector('#app [data-state="'+state+'"').className = "ready";
 			}
 			function getStoredJWT() {
@@ -28,6 +33,12 @@
 			}
 			function getStoredWallet() {
 				return localStorage.getItem('coreflowWallet') || false
+			}
+			function createWallet(inputSelector) {
+				setLoading('Creating account...')
+				setTimeout(function(){
+					setReady('initial')
+				},2000)
 			}
 			function setInitialState() {
 				setLoading('Loading...')
@@ -57,15 +68,34 @@
 	<body>
 		<style>
 			html, body {
-				margin:0; padding:0; background:#333333; color:#fafafa;
+				margin:0; padding:0; background:#fafafa; color:#333333; font-family:sans-serif;
+			}
+			header {
+				text-align:center;
+				padding-top:32px;
+				padding-bottom:32px;
+			}
+			input {
+				padding:8px 16px;
+				outline:none;
+				border:none;
+				border:solid 2px rgba(0,0,0,0.2);
+				border-radius:8px;
+				transition: all .1s;
+			}
+			input[type="submit"], button {
+				padding:8px 16px;
+				cursor:pointer;
+			}
+			input[type="submit"]:hover, button:hover {
+				color:#fafafa;
+				background-color:#1979a9;
 			}
 			#app, #loader {
-				position:absolute;
-				top:50%;
-				left:50%;
+				width:100%;
 				font-size:50px;
-				transform:translate(-50%,-50%);
 				transition:opacity .2s;
+				text-align:center;
 			}
 			#app {
 				opacity:0;
@@ -79,20 +109,24 @@
 			}
 			[data-state] {
 				display:none;
+				width:100%;
+				text-align:center;
 			}
 			[data-state].ready {
 				display:block;
 			}
 		</style>
 		<header>
-			Coreflow Demo
+			<img src="../dist/logo.png"/>
 		</header>
 		<div id="loader">
-			<span></span>
+			<h4></h4>
 		</div>
 		<div id="app">
 			<div data-state="initial">
-				Initial
+				<h4>Get started</h4>
+				<input type="password" name="password_initial" placeholder="Enter a password"/>
+				<input onclick="createWallet([name='password_initial'])" type="submit" value="Create account"/>
 			</div>
 			<div data-state="unlockWallet">
 				Unlock wallet?!
