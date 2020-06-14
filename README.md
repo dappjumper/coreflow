@@ -51,7 +51,9 @@ Additionally, on the web the procedure of using injectable.js is as follows:
 <script type="text/javascript">
 	function injectableLoaded() {
 		//onReady called when user login system is ready
-		coreflow.onReady = setInitialState
+		coreflow.onReady = function(){
+			//Here you can check if the user has a JWT token in localstorage etc.
+		}
 
 		//Initialize it with optional options objects
 		coreflow.init({
