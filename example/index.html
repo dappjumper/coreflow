@@ -41,7 +41,7 @@
 				localStorage.removeItem(coreflow.options.strings.JWTKey)
 				window.location.reload()
 			}
-			function forgetMe() {
+			function forgetWallet() {
 				localStorage.removeItem(coreflow.options.strings.encryptedWalletKey)
 				window.location.reload()
 			}
@@ -90,6 +90,7 @@
 					if(!getStoredWallet()) {
 						setReady('initial')
 					} else {
+						document.querySelector('#unlockWalletAddress').innerHTML = "0x"+JSON.parse(getStoredWallet()).address
 						setReady('unlockWallet')
 					}
 				} else {
@@ -305,7 +306,8 @@
 				</form>
 			</div>
 			<div data-state="unlockWallet">
-				<h3>Unlock wallet</h3>
+				<h3>Unlock user</h3>
+				<pre id="unlockWalletAddress"></pre>
 					<form onsubmit="unlockWallet('[name=\'password_unlock\']'); return false;">
 					<input type="password" required pattern=".{4,}" title="Must contain at least 4 or more characters" name="password_unlock" placeholder="Enter your password"/>
 					<input onclick="" type="submit" value="Unlock"/>
