@@ -69,13 +69,19 @@ const registrationChallenge = (user, service)=>{
 const requiredRoutes = {
 	protected: [
 		{
-			url: "modules",
-			module: "core",
+			url: "profile",
+			module: "user",
 			handler: function(req, res) {
-
+				User.model.findOne({address:req.user.address}, function(err, user){
+					if(!err && user) {
+						res.status(200).send(httpFeedback(200, user))
+					} else {
+						res.send(httpFeedback(404))
+					}
+				})
 			},
 			method: "get",
-			description: "GET user's module data (if available)"
+			description: "GET user's data (if available)"
 		}
 	],
 	public: [
@@ -129,11 +135,17 @@ const requiredRoutes = {
 					}
 					signatureMatchesAddress(req.params.address, req.body.signature, content)
 						.then((result)=>{
-							JwtGen.sign({ address: result.address }, process.env.JWTSECRET || "supersecret", function(err, token) {
-							  	if(err) return res.send(httpFeedback(500))
-								res.send(httpFeedback(200, token))
-							  	User.model.updateOne({address: result.address}, {$set: {address:address}, $inc:{nonce: 1}, $setOnInsert: {created: new Date().getTime()}}, {upsert:true})
-							});
+							User.model.updateOne({
+								address: result.address
+							}, {
+								$set: {address:result.address}, $inc:{nonce: 1}, $setOnInsert: {created: new Date().getTime()}
+							}, {upsert:true}
+							, function(err, user){
+								JwtGen.sign({ address: result.address }, process.env.JWTSECRET || "supersecret", function(err, token) {
+								  	if(err) return res.send(httpFeedback(500))
+									res.send(httpFeedback(200, token))
+								});
+							})
 						})
 						.catch(()=>{
 							res.send(httpFeedback(400))
@@ -158,10 +170,23 @@ const traverseRoutes = (arr, protected) => {
 	for(let index in arr) {
 		let route = arr[index]
 		route.url = "/api/"+route.module+"/v"+(route.version || APIVersion)+"/" + route.url
-		app[route.method](route.url, route.handler);
+		if(protected) {
+			app[route.method](route.url, Jwt({secret: process.env.JWTSECRET }), route.handler)
+		} else {
+			app[route.method](route.url, route.handler);
+		}
 		console.log(route.method, route.url, (protected ? 'Protected' : 'Public'))
 	}
 }
+
+const protected = function(req,res,next){
+	if(req.user){
+		next();
+	} else {
+		res.status(500).json({error:'login is required'});
+	}
+}
+
 
 const resolveAddressFromSignature = (signature, content)=>{
 		return new Promise((resolve, reject)=>{

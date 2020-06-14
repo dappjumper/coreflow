@@ -6,7 +6,8 @@ window.coreflow = {
 		web3Provided: false,
 		strings: {
 			encryptedWalletKey: "coreflow_encrypted_wallet",
-			JWTKey: "coreflow_jwt"
+			JWTKey: "coreflow_jwt",
+			address: "coreflow_adress"
 		}
 	}
 }
@@ -29,7 +30,7 @@ coreflow.preflight = ()=>{
 	coreflow.onReady()
 }
 
-coreflow.home = (module, method, payload)=>{
+coreflow.api = (module, method, payload)=>{
 	return new Promise((resolve, reject)=>{
 	  	let url = coreflow.options.baseDomain+"/api/"+module+"/v1/"+method;
 		var xhttp = new XMLHttpRequest();
@@ -45,6 +46,9 @@ coreflow.home = (module, method, payload)=>{
 		  if(payload) {
 		  	xhttp.setRequestHeader('Content-type', 'application/json');
 		  }
+		  if(localStorage.getItem(coreflow.options.strings.JWTKey)) {
+		  	xhttp.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem(coreflow.options.strings.JWTKey))
+		  }
 		  xhttp.send((payload ? JSON.stringify(payload): null));
 	})
 }
@@ -58,10 +62,14 @@ coreflow.user = {
 					if(!res.msg) return reject();
 					coreflow.user.solveChallenge(res.msg)
 						.then((res)=>{
-							coreflow.home('user','challenge/'+coreflow.user.wallet.address,res)
+							coreflow.api('user','challenge/'+coreflow.user.wallet.address,{signature:res.signature})
 								.then((res)=>{
-									localStorage.setItem(coreflow.options.strings.JWTKey, res.msg)
-									resolve()
+									if(res.code == 200) {
+										localStorage.setItem(coreflow.options.strings.JWTKey, res.msg)
+										resolve()
+									} else {
+										reject()
+									}
 								})
 								.catch((res)=>{
 									reject(res)
@@ -77,12 +85,12 @@ coreflow.user = {
 	getChallenge: ()=>{
 		return new Promise((resolve, reject)=>{
 			if(!coreflow.user.wallet) return reject();
-			coreflow.home('user','challenge/'+coreflow.user.wallet.address)
-				.then((code, response)=>{
-					resolve(code, response)
+			coreflow.api('user','challenge/'+coreflow.user.wallet.address)
+				.then((res)=>{
+					resolve(res)
 				})
-				.catch((code, response)=>{
-					reject(code, response)
+				.catch((res)=>{
+					reject(res)
 				})
 		})
 	},
@@ -100,11 +108,10 @@ coreflow.user = {
 		return new Promise((resolve, reject)=>{
 			setTimeout(function(){
 				try {
-					let encryptedWallet = localStorage.getItem(encryptedWalletKey);
+					let encryptedWallet = localStorage.getItem(coreflow.options.strings.encryptedWalletKey);
 					if(!encryptedWallet) reject();
-					let wallet = coreflow.web3.eth.accounts.decrypt(JSON.parse(encryptedWallet));
+					let wallet = coreflow.web3.eth.accounts.decrypt(JSON.parse(encryptedWallet),password);
 					coreflow.user.wallet = wallet;
-					localStorage.setItem(coreflow.options.strings.encryptedWalletKey,wallet.encrypt(password));
 					return resolve(coreflow.user.wallet);
 				} catch(e){
 					return reject(e);
@@ -118,7 +125,7 @@ coreflow.user = {
 				try {
 					let wallet = coreflow.web3.eth.accounts.create();
 					coreflow.user.wallet = wallet;
-					localStorage.setItem(coreflow.options.strings.encryptedWalletKey,wallet.encrypt(password));
+					localStorage.setItem(coreflow.options.strings.encryptedWalletKey,JSON.stringify(wallet.encrypt(password)));
 					return resolve(coreflow.user.wallet);
 				} catch(e){
 					return reject(e);
@@ -130,10 +137,6 @@ coreflow.user = {
 
 coreflow.modules = {
 
-}
-
-coreflow.api = () => {
-	
 }
 
 coreflow.onReady = ()=>{
