@@ -158,9 +158,7 @@ const requiredRoutes = {
 	]
 }
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname+'/dist/index.html');
-})
+
 
 app.get('/dist/:file', function(req,res){
 	res.sendFile(__dirname+'/dist/'+req.params.file)
@@ -168,7 +166,11 @@ app.get('/dist/:file', function(req,res){
 
 if(process.env.STANDALONE) app.get('/', function(req, res) {
 	res.sendFile(__dirname+'/dist/standalone/index.html');
-})
+}) else {
+	app.get('/', function (req, res) {
+	  res.sendFile(__dirname+'/dist/index.html');
+	})
+}
 
 const traverseRoutes = (arr, protected) => {
 	for(let index in arr) {
