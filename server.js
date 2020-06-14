@@ -166,6 +166,10 @@ app.get('/dist/:file', function(req,res){
 	res.sendFile(__dirname+'/dist/'+req.params.file)
 })
 
+if(process.env.STANDALONE) app.get('/', function(req, res) {
+	res.sendFile(__dirname+'/dist/standalone/index.html');
+})
+
 const traverseRoutes = (arr, protected) => {
 	for(let index in arr) {
 		let route = arr[index]

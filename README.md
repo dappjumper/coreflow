@@ -32,6 +32,12 @@
 - **DOMAIN**  *Used in challenge strings and more*  
 `coreflow.js`  
 
+- **PRODUCTION**  *Required if not running with devDependencies*  
+`yes`  
+
+- **STANDALONE**  *Deliver /dist/standalone/index.html if set*  
+`yes`  
+
 ## Configuration (web)
 When invoking injectable.js you can provide a few modifications to suit your deployment environment
 ```
