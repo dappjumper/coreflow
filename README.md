@@ -1,7 +1,7 @@
 <a href="http://auth.dappjump.io"><img src="https://github.com/dappjumper/coreflow/blob/master/dist/logo.png" title="Auth Server" alt="Auth Server"></a>
 > Self-contained NodeJS and MongoDB user system designed to be a micro-service for authorization via Ethereum signatures.
 
-<a href="http://coreflow-demo.herokuapp.com/">Try the standalone version</a> *(api + client in one)*
+<a href="http://coreflow-demo.herokuapp.com/" target="_blank">Try the standalone version</a> *(api + client in one)*
 
 <img src="https://img.shields.io/github/package-json/keywords/dappjumper/coreflow?style=for-the-badge"> <img src="https://img.shields.io/github/package-json/v/dappjumper/coreflow?style=for-the-badge"> 
 
