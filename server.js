@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-require('dotenv').config()
+if(process.env.PRODUCTION) require('dotenv').config()
 
 const APIVersion = version.split('.')[0];
 
