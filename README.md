@@ -32,20 +32,32 @@
 - **DOMAIN**  *Used in challenge strings and more*  
 `coreflow.js`  
 
-## Modules
+## Configuration
+When invoking injectable.js you can provide a few modifications to suit your deployment environment
+```
+baseDomain: "https://auth.dappjump.io",
+distLocation: "dist",
+useDistSubfolder: false,
+web3Provided: false,
+strings: {
+	encryptedWalletKey: "coreflow_encrypted_wallet",
+	JWTKey: "coreflow_jwt",
+	address: "coreflow_adress"
+}
+```
 
-### Core
-```JavaScript
-get /api/core/v1/modules //Get all installed modules
-get /api/core/v1/ //See all available endpoints
-```
-### User
-```JavaScript
-get /api/user/v1/challenge/:address? //Get either a login or registration challenge to be signed by the client
-post /api/user/v1/challenge/:address? //Submit your signed challenge for verification (returns JWT Token)
-```
+## Endpoints
 
-### Info
-```JavaScript
-get /api/info/v1/version //Get the full version of your Coreflow server
-```
+### Public
+
+`get /api/info/v1/version`  *Get API Version (from package.json)*
+
+`get /api/core/v1/`  *Get a list of all available endpoints*
+
+`get /api/user/v1/challenge/:address?`  *Send address and receive either login or registration challenge*
+
+`post /api/user/v1/challenge/:address?`  *Send solved challenge and receive JWT Token for Authorization header*
+
+### Protected
+
+`get /api/user/v1/profile`  *Get all user data*
