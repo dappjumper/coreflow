@@ -164,9 +164,11 @@ app.get('/dist/:file', function(req,res){
 	res.sendFile(__dirname+'/dist/'+req.params.file)
 })
 
-if(process.env.STANDALONE) app.get('/', function(req, res) {
+if(process.env.STANDALONE) {
+	app.get('/', function(req, res) {
 	res.sendFile(__dirname+'/dist/standalone/index.html');
-}) else {
+})
+} else {
 	app.get('/', function (req, res) {
 	  res.sendFile(__dirname+'/dist/index.html');
 	})
