@@ -79,4 +79,8 @@ Additionally, on the web the procedure of using injectable.js is as follows:
 
 ### Protected
 
+To access any of the below endpoints you must have already solved a challenge and received a JWT Token.
+
+Put this in your HTTP Header as follows: `Authorization: Bearer <token>`
+
 `get /api/user/v1/profile`  *Get all user data*
