@@ -32,7 +32,7 @@
 - **DOMAIN**  *Used in challenge strings and more*  
 `coreflow.js`  
 
-## Configuration
+## Configuration (web)
 When invoking injectable.js you can provide a few modifications to suit your deployment environment
 ```
 baseDomain: "https://auth.dappjump.io",
@@ -44,6 +44,25 @@ strings: {
 	JWTKey: "coreflow_jwt",
 	address: "coreflow_adress"
 }
+```
+
+Additionally, on the web the procedure of using injectable.js is as follows:
+```
+<script type="text/javascript">
+	function injectableLoaded() {
+		//onReady called when user login system is ready
+		coreflow.onReady = setInitialState
+
+		//Initialize it with optional options objects
+		coreflow.init({
+			baseDomain: "http://localhost"
+		})
+	}
+	function serviceOffline() {
+		//Update your UI in case injectable.js is unavailable or the client has no internet connection
+	}
+</script>
+<script src="http://localhost/dist/injectable.js" async defer onerror="serviceOffline()" onload="injectableLoaded()"></script>
 ```
 
 ## Endpoints

@@ -123,6 +123,17 @@
 			}
 
 		</script>
+		<script type="text/javascript">
+			function injectableLoaded() {
+				//onReady called when user login system is ready
+				coreflow.onReady = setInitialState
+
+				//Initialize it with optional options objects
+				coreflow.init({
+					baseDomain: "http://localhost"
+				})
+			}
+		</script>
 		<script src="http://localhost/dist/injectable.js" async defer onerror="serviceOffline()" onload="injectableLoaded()"></script>
 	</head>
 	<body>
