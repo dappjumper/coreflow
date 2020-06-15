@@ -26,7 +26,7 @@ const httpFeedback = (code, customMessage)=>{
 	*/
 	let chunk = {
 		code: code,
-		msg: httpCodes[code] ? httpCodes[code] : "Undefined error"
+		msg: customMessage || httpCodes[code] ? httpCodes[code] : "Undefined error"
 	}
 	return chunk;		
 }
