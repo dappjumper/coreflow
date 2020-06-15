@@ -114,13 +114,13 @@
 				setLoading('Server is offline...')
 				document.querySelector('#loader').className="stopped"
 			}
-
+			
 		</script>
 		<script type="text/javascript">
 			function injectableLoaded() {
 				//onReady called when user login system is ready
 				coreflow.onReady = setInitialState
-
+			
 				//Initialize it with optional options objects
 				coreflow.init({
 					baseDomain: window.location.protocol + '//' + window.location.hostname
@@ -132,176 +132,181 @@
 	<body>
 		<style>
 			html, body {
-				margin:0; padding:0; background:#fafafa; color:#333333; font-family:sans-serif;
+			margin:0; padding:0; background:#fafafa; color:#333333; font-family:sans-serif;
 			}
 			header {
-				text-align:center;
-				padding-top:32px;
-				padding-bottom:32px;
+			text-align:center;
+			padding-top:32px;
+			padding-bottom:32px;
 			}
 			input, button {
-				padding:8px 16px;
-				outline:none;
-				border:none;
-				border:solid 2px rgba(0,0,0,0.2);
-				border-radius:8px;
-				font-size:16px;
-				transition: all .1s;
+			padding:8px 16px;
+			outline:none;
+			border:none;
+			border:solid 2px rgba(0,0,0,0.2);
+			border-radius:8px;
+			font-size:16px;
+			transition: all .1s;
 			}
 			input[type="submit"], button {
-				padding:8px 16px;
-				cursor:pointer;
+			padding:8px 16px;
+			cursor:pointer;
 			}
 			input[type="submit"]:hover, button:hover {
-				color:#fafafa;
-				background-color:#1979a9;
+			color:#fafafa;
+			background-color:#1979a9;
 			}
 			#app, #loader {
-				width:100%;
-				transition:opacity .2s;
-				text-align:center;
+			width:100%;
+			transition:opacity .2s;
+			text-align:center;
 			}
 			#loader {
-				position:fixed;
-				font-size:18px;
+			position:fixed;
+			font-size:18px;
 			}
 			#app {
-				opacity:0;
+			opacity:0;
 			}
 			#app.ready {
-				opacity:1;
+			opacity:1;
 			}
 			#loader.ready {
-				opacity:0;
-				pointer-events: none;
+			opacity:0;
+			pointer-events: none;
 			}
 			[data-state] {
-				display:none;
-				width:100%;
-				text-align:center;
+			display:none;
+			width:100%;
+			text-align:center;
 			}
 			[data-state].ready {
-				display:block;
+			display:block;
 			}
 			header img {
-				width: 100%;
-				padding: 8px;
-				box-sizing: border-box;
-				max-width: 345px;
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+			max-width: 345px;
 			}
 		</style>
 		<header>
 			<img src="../dist/logo.png"/>
 		</header>
 		<div id="loader">
-			<div class="loadingio-spinner-double-ring-2zg7r1y2oqq"><div class="ldio-xq4lgjs344">
-			<div></div>
-			<div></div>
-			<div><div></div></div>
-			<div><div></div></div>
-			</div></div>
+			<div class="loadingio-spinner-double-ring-2zg7r1y2oqq">
+				<div class="ldio-xq4lgjs344">
+					<div></div>
+					<div></div>
+					<div>
+						<div></div>
+					</div>
+					<div>
+						<div></div>
+					</div>
+				</div>
+			</div>
 			<style type="text/css">
-			@keyframes ldio-xq4lgjs344 {
-			  0% { transform: rotate(0) }
-			  100% { transform: rotate(360deg) }
-			}
-			.ldio-xq4lgjs344 div { box-sizing: border-box!important }
-			.ldio-xq4lgjs344 > div {
-			  position: absolute;
-			  width: 165px;
-			  height: 165px;
-			  top: 42.5px;
-			  left: 42.5px;
-			  border-radius: 50%;
-			  border: 5px solid #000;
-			  border-color: #85a2b6 transparent #85a2b6 transparent;
-			  animation: ldio-xq4lgjs344 2.2222222222222223s linear infinite;
-			}
-
-			.ldio-xq4lgjs344 > div:nth-child(2), .ldio-xq4lgjs344 > div:nth-child(4) {
-			  width: 150px;
-			  height: 150px;
-			  top: 50px;
-			  left: 50px;
-			  animation: ldio-xq4lgjs344 2.2222222222222223s linear infinite reverse;
-			}
-			.ldio-xq4lgjs344 > div:nth-child(2) {
-			  border-color: transparent #bbcedd transparent #bbcedd
-			}
-			.ldio-xq4lgjs344 > div:nth-child(3) { border-color: transparent }
-			.ldio-xq4lgjs344 > div:nth-child(3) div {
-			  position: absolute;
-			  width: 100%;
-			  height: 100%;
-			  transform: rotate(45deg);
-			}
-			.ldio-xq4lgjs344 > div:nth-child(3) div:before, .ldio-xq4lgjs344 > div:nth-child(3) div:after { 
-			  content: "";
-			  display: block;
-			  position: absolute;
-			  width: 5px;
-			  height: 5px;
-			  top: -5px;
-			  left: 75px;
-			  background: #85a2b6;
-			  border-radius: 50%;
-			  box-shadow: 0 160px 0 0 #85a2b6;
-			}
-			.ldio-xq4lgjs344 > div:nth-child(3) div:after {
-			  left: -5px;
-			  top: 75px;
-			  box-shadow: 160px 0 0 0 #85a2b6;
-			}
-
-			.ldio-xq4lgjs344 > div:nth-child(4) { border-color: transparent; }
-			.ldio-xq4lgjs344 > div:nth-child(4) div {
-			  position: absolute;
-			  width: 100%;
-			  height: 100%;
-			  transform: rotate(45deg);
-			}
-			.ldio-xq4lgjs344 > div:nth-child(4) div:before, .ldio-xq4lgjs344 > div:nth-child(4) div:after {
-			  content: "";
-			  display: block;
-			  position: absolute;
-			  width: 5px;
-			  height: 5px;
-			  top: -5px;
-			  left: 67.5px;
-			  background: #bbcedd;
-			  border-radius: 50%;
-			  box-shadow: 0 145px 0 0 #bbcedd;
-			}
-			.ldio-xq4lgjs344 > div:nth-child(4) div:after {
-			  left: -5px;
-			  top: 67.5px;
-			  box-shadow: 145px 0 0 0 #bbcedd;
-			}
-			.loadingio-spinner-double-ring-2zg7r1y2oqq {
-			  width: 250px;
-			  height: 250px;
-			  display: inline-block;
-			  overflow: hidden;
-			  background: none;
-			}
-			.ldio-xq4lgjs344 {
-			  width: 100%;
-			  height: 100%;
-			  position: relative;
-			  transform: translateZ(0) scale(1);
-			  backface-visibility: hidden;
-			  transform-origin: 0 0; /* see note above */
-			}
-			.ldio-xq4lgjs344 div { box-sizing: content-box; }
-			.stopped .ldio-xq4lgjs344 {
+				@keyframes ldio-xq4lgjs344 {
+				0% { transform: rotate(0) }
+				100% { transform: rotate(360deg) }
+				}
+				.ldio-xq4lgjs344 div { box-sizing: border-box!important }
+				.ldio-xq4lgjs344 > div {
+				position: absolute;
+				width: 165px;
+				height: 165px;
+				top: 42.5px;
+				left: 42.5px;
+				border-radius: 50%;
+				border: 5px solid #000;
+				border-color: #85a2b6 transparent #85a2b6 transparent;
+				animation: ldio-xq4lgjs344 2.2222222222222223s linear infinite;
+				}
+				.ldio-xq4lgjs344 > div:nth-child(2), .ldio-xq4lgjs344 > div:nth-child(4) {
+				width: 150px;
+				height: 150px;
+				top: 50px;
+				left: 50px;
+				animation: ldio-xq4lgjs344 2.2222222222222223s linear infinite reverse;
+				}
+				.ldio-xq4lgjs344 > div:nth-child(2) {
+				border-color: transparent #bbcedd transparent #bbcedd
+				}
+				.ldio-xq4lgjs344 > div:nth-child(3) { border-color: transparent }
+				.ldio-xq4lgjs344 > div:nth-child(3) div {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				transform: rotate(45deg);
+				}
+				.ldio-xq4lgjs344 > div:nth-child(3) div:before, .ldio-xq4lgjs344 > div:nth-child(3) div:after { 
+				content: "";
+				display: block;
+				position: absolute;
+				width: 5px;
+				height: 5px;
+				top: -5px;
+				left: 75px;
+				background: #85a2b6;
+				border-radius: 50%;
+				box-shadow: 0 160px 0 0 #85a2b6;
+				}
+				.ldio-xq4lgjs344 > div:nth-child(3) div:after {
+				left: -5px;
+				top: 75px;
+				box-shadow: 160px 0 0 0 #85a2b6;
+				}
+				.ldio-xq4lgjs344 > div:nth-child(4) { border-color: transparent; }
+				.ldio-xq4lgjs344 > div:nth-child(4) div {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				transform: rotate(45deg);
+				}
+				.ldio-xq4lgjs344 > div:nth-child(4) div:before, .ldio-xq4lgjs344 > div:nth-child(4) div:after {
+				content: "";
+				display: block;
+				position: absolute;
+				width: 5px;
+				height: 5px;
+				top: -5px;
+				left: 67.5px;
+				background: #bbcedd;
+				border-radius: 50%;
+				box-shadow: 0 145px 0 0 #bbcedd;
+				}
+				.ldio-xq4lgjs344 > div:nth-child(4) div:after {
+				left: -5px;
+				top: 67.5px;
+				box-shadow: 145px 0 0 0 #bbcedd;
+				}
+				.loadingio-spinner-double-ring-2zg7r1y2oqq {
+				width: 250px;
+				height: 250px;
+				display: inline-block;
+				overflow: hidden;
+				background: none;
+				}
+				.ldio-xq4lgjs344 {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				transform: translateZ(0) scale(1);
+				backface-visibility: hidden;
+				transform-origin: 0 0; /* see note above */
+				}
+				.ldio-xq4lgjs344 div { box-sizing: content-box; }
+				.stopped .ldio-xq4lgjs344 {
 				transition:all .2s;
 				filter:blur(2px)!important;
 				opacity:0.2;
-			}
-			/* generated by https://loading.io/ */
+				}
+				/* generated by https://loading.io/ */
 			</style>
-			<p>Loading...<p>
-			<button onclick="logOut()">Reset</button>
+			<p>Loading...
+			<p>
+				<button onclick="logOut()">Reset</button>
 		</div>
 		<div id="app">
 			<div data-state="dashboard">
@@ -312,14 +317,14 @@
 			<div data-state="initial">
 				<h3>Get started</h3>
 				<form onsubmit="createWallet('[name=\'password_initial\']'); return false;">
-				<input type="password" required pattern=".{4,}" title="Must contain at least 4 or more characters" name="password_initial" placeholder="Enter a password"/>
-				<input onclick="" type="submit" value="Create account"/>
+					<input type="password" required pattern=".{4,}" title="Must contain at least 4 or more characters" name="password_initial" placeholder="Enter a password"/>
+					<input onclick="" type="submit" value="Create account"/>
 				</form>
 			</div>
 			<div data-state="unlockWallet">
 				<h3>Unlock user</h3>
 				<pre id="unlockWalletAddress"></pre>
-					<form onsubmit="unlockWallet('[name=\'password_unlock\']'); return false;">
+				<form onsubmit="unlockWallet('[name=\'password_unlock\']'); return false;">
 					<input type="password" required pattern=".{4,}" title="Must contain at least 4 or more characters" name="password_unlock" placeholder="Enter your password"/>
 					<input onclick="" type="submit" value="Unlock"/>
 				</form>
