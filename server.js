@@ -10,23 +10,24 @@ const Jwt = require('express-jwt');
 const JwtGen = require('jsonwebtoken');
 const version = require('./package.json').version;
 
+const httpCodes = {
+	"400": "Bad input data",
+	"404": "Resource not found",
+	"500": "Something went wrong..."
+}
+
 const httpFeedback = (code, customMessage)=>{
+	/*
+		Standardized responses for http
+		code: HTTP Status code
+		customMessage: Overwrite default message
+		returns {code, msg}
+	*/
 	let chunk = {
 		code: code,
-		msg: customMessage || "Something went wrong..."
+		msg: httpCodes[code] ? httpCodes[code] : "Undefined error"
 	}
-	switch(code) {
-		case 400:
-			chunk.msg = "Bad input data"
-		break;
-		case 404:
-			chunk.msg = "Resource not found"
-		break;
-		case 500:
-			chunk.msg = "Something went wrong..."
-		break;
-	}
-	return chunk;
+	return chunk;		
 }
 
 app.use(cors())
