@@ -11,6 +11,7 @@ const JwtGen = require('jsonwebtoken');
 const version = require('./package.json').version;
 
 const httpCodes = {
+	"200": "Success"
 	"400": "Bad input data",
 	"404": "Resource not found",
 	"500": "Something went wrong..."
