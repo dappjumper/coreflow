@@ -177,16 +177,26 @@ coreflow.init = (app, callback)=>{
 	}
 };
 
+coreflow.routes = {
+	addProtected: (route)=>{
+		console.log(route.method, route.url, "Protected")
+		coreflow.app[route.method](route.url, Jwt({secret: process.env.JWTSECRET }), route.handler)
+	},
+	addPublic: (route)=>{
+		console.log(route.method, route.url, "Public")
+		coreflow.app[route.method](route.url, route.handler);
+	}
+}
+
 const traverseRoutes = (arr, protected) => {
 	for(let index in arr) {
 		let route = arr[index]
 		route.url = "/api/"+route.module+"/v"+(route.version || APIVersion)+"/" + route.url
 		if(protected) {
-			coreflow.app[route.method](route.url, Jwt({secret: process.env.JWTSECRET }), route.handler)
+			coreflow.routes.addProtected(route);
 		} else {
-			coreflow.app[route.method](route.url, route.handler);
+			coreflow.routes.addPublic(route);
 		}
-		console.log(route.method, route.url, (protected ? 'Protected' : 'Public'))
 	}
 }
 
