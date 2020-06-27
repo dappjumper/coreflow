@@ -103,7 +103,6 @@
 				setLoading('Logging in...')
 				coreflow.api('user','profile')
 					.then((res)=>{
-						console.log(res.msg)
 						document.getElementById('userdata').innerHTML = JSON.stringify(res.msg)
 						setReady('dashboard')
 					})
